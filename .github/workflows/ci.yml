@@ -23,8 +23,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'microsoft/vscode'
-          ref: '1.85.1'
+          repository: "microsoft/vscode"
+          ref: "1.85.1"
 
       - uses: actions/setup-node@v3
         with:
@@ -35,7 +35,9 @@ jobs:
           python-version: "3.12.1"
 
       - name: Compile and Download
-        run: yarn npm-run-all --max_old_space_size=4095 -lp compile "electron x64" playwright-install download-builtin-extensions
+        run: |
+          yarn
+          yarn npm-run-all --max_old_space_size=4095 -lp compile "electron x64" playwright-install download-builtin-extensions
 
   darwin:
     name: macOS
@@ -46,22 +48,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'microsoft/vscode'
-          ref: '1.85.1'
+          repository: "microsoft/vscode"
+          ref: "1.85.1"
 
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
 
       - name: Compile and Download
-        run: yarn npm-run-all --max_old_space_size=4095 -lp compile "electron x64" playwright-install download-builtin-extensions
-
-      - name: Compile Integration Tests
-        run: yarn --cwd test/integration/browser compile
-
-      # This is required for SecretStorage unittests
-      - name: Create temporary keychain
         run: |
-          security create-keychain -p pwd $RUNNER_TEMP/buildagent.keychain
-          security default-keychain -s $RUNNER_TEMP/buildagent.keychain
-          security unlock-keychain -p pwd $RUNNER_TEMP/buildagent.keychain
+          yarn
+          yarn npm-run-all --max_old_space_size=4095 -lp compile "electron x64" playwright-install download-builtin-extensions
