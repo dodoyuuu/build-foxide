@@ -42,7 +42,7 @@ jobs:
   darwin:
     name: macOS
     runs-on: macos-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -54,6 +54,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12.1"
 
       - name: Compile and Download
         run: |
