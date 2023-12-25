@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/microsoft/vscode.git'
+          repository: 'microsoft/vscode'
           ref: '1.85.1'
 
       - uses: actions/setup-node@v3
@@ -106,7 +106,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/microsoft/vscode.git'
+          repository: 'microsoft/vscode'
           ref: '1.85.1'
 
       # TODO: rename azure-pipelines/linux/xvfb.init to github-actions
@@ -190,7 +190,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/microsoft/vscode.git'
+          repository: 'microsoft/vscode'
           ref: '1.85.1'
 
       - uses: actions/setup-node@v3
@@ -265,7 +265,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'https://github.com/microsoft/vscode.git'
+          repository: 'microsoft/vscode'
           ref: '1.85.1'
 
       - uses: actions/setup-node@v3
