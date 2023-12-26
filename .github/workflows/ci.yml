@@ -17,15 +17,15 @@ jobs:
     name: Windows
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: microsoft/vscode
           ref: 1.85.1
+          path: vscode
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.15.x
-          registry-url: https://npm.pkg.github.com/
 
       - uses: actions/setup-python@v4
         with:
@@ -39,15 +39,15 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           repository: microsoft/vscode
           ref: 1.85.1
+          path: vscode
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.15.x
-          registry-url: https://npm.pkg.github.com/
 
       - uses: actions/setup-python@v4
         with:
