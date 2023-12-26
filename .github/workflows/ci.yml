@@ -21,7 +21,6 @@ jobs:
         with:
           repository: microsoft/vscode
           ref: 1.85.1
-          path: vscode
 
       - uses: actions/setup-node@v4
         with:
@@ -31,7 +30,6 @@ jobs:
         with:
           python-version: 3.12.1
       
-      - run: cd vscode
       - run: yarn
       - run: yarn gulp vscode-win32-x64
 
@@ -44,7 +42,6 @@ jobs:
         with:
           repository: microsoft/vscode
           ref: 1.85.1
-          path: vscode
 
       - uses: actions/setup-node@v4
         with:
@@ -54,6 +51,5 @@ jobs:
         with:
           python-version: 3.12.1
 
-      - run: cd vscode
       - run: yarn
       - run: yarn gulp vscode-darwin-x64
