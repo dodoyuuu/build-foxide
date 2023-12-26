@@ -24,14 +24,13 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.5.x
+          node-version: 18.15.x
           registry-url: https://npm.pkg.github.com/
 
       - uses: actions/setup-python@v4
         with:
           python-version: 3.12.1
 
-      - run: npm install yarn -g
       - run: yarn
       - run: yarn gulp vscode-win32-x64
 
@@ -47,13 +46,12 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.5.x
+          node-version: 18.15.x
           registry-url: https://npm.pkg.github.com/
 
       - uses: actions/setup-python@v4
         with:
           python-version: 3.12.1
 
-      - run: npm install yarn -g
       - run: yarn
       - run: yarn gulp vscode-darwin-x64
