@@ -17,19 +17,19 @@ jobs:
     name: Windows
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
-          repository: "microsoft/vscode"
-          ref: "1.85.1"
+          repository: microsoft/vscode
+          ref: 1.85.1
 
       - uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
+          node-version: 16
           registry-url: https://npm.pkg.github.com/
 
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.12.1"
+          python-version: 3.12.1
 
       - run: npm install yarn -g
       - run: yarn
@@ -40,19 +40,19 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
-          repository: "microsoft/vscode"
-          ref: "1.85.1"
+          repository: microsoft/vscode
+          ref: 1.85.1
 
       - uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
+          node-version: 16
           registry-url: https://npm.pkg.github.com/
 
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.12.1"
+          python-version: 3.12.1
 
       - run: npm install yarn -g
       - run: yarn
