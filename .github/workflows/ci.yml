@@ -14,39 +14,39 @@ on: workflow_dispatch
 
 jobs:
   build:
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.runs-on }}
+    name: ${{ matrix.build }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         build: [windows, darwin-x64, darwin-arm]
         include:
           - build: windows
-            name: windows
-            runs-on: windows-latest
+            os: windows-latest
             commond: vscode-win32-x64
+            dist: VSCode-win32-x64
 
           - build: darwin-x64
-            name: darwin-x64
-            runs-on: macos-latest
+            os: macos-latest
             commond: vscode-darwin-x64
+            dist: VSCode-darwin-x64
 
           - build: darwin-arm
-            name: darwin-arm
-            runs-on: macos-latest
+            os: macos-latest
             commond: vscode-darwin-arm
+            dist: VSCode-darwin-arm
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
           repository: microsoft/vscode
           ref: 1.85.1
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
           node-version-file: .nvmrc
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v3
         with:
           python-version: 3.10.x
 
@@ -55,3 +55,9 @@ jobs:
           npm install -g node-gyp yarn
           yarn
           yarn gulp ${{ matrix.commond }}
+
+      - uses: actions/cache@v3
+        id: cache
+        with:
+          path: ../${{ matrix.dist }}
+          key: foxide-${{ matrix.build }}
