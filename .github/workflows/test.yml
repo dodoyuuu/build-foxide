@@ -1,0 +1,57 @@
+name: CI
+
+on: workflow_dispatch
+
+# on:
+#   push:
+#     branches:
+#       - main
+#       - release/*
+#   pull_request:
+#     branches:
+#       - main
+#       - release/*
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        build: [windows, darwin-x64, darwin-arm]
+        include:
+          - build: windows
+            name: windows
+            runs-on: windows-latest
+            commond: vscode-win32-x64
+
+          - build: darwin-x64
+            name: darwin-x64
+            runs-on: macos-latest
+            commond: vscode-darwin-x64
+
+          - build: darwin-arm
+            name: darwin-arm
+            runs-on: macos-latest
+            commond: vscode-darwin-arm
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: microsoft/vscode
+          ref: 1.85.1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.x
+
+      - name: Run Build
+        run: |
+          npm install -g node-gyp yarn
+          yarn
+          yarn gulp ${{ matrix.commond }}
