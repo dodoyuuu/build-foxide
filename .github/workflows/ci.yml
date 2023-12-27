@@ -41,6 +41,18 @@ jobs:
         with:
           repository: microsoft/vscode
           ref: 1.85.1
+          path: vscode
+
+      - uses: actions/checkout@v3
+        with:
+          repository: microsoft/vscode
+          ref: master
+          path: foxide
+
+      - name: Run Test
+        run: |
+          pwd
+          ls
 
       - uses: actions/setup-node@v3
         with:
@@ -55,9 +67,9 @@ jobs:
           npm install -g node-gyp yarn
           yarn
           yarn gulp ${{ matrix.commond }}
+          cd ..
 
-      - uses: actions/cache@v3
-        id: cache
+      - uses: actions/upload-artifact@v3
         with:
-          path: ../${{ matrix.dist }}
-          key: foxide-${{ matrix.build }}
+          name: my-artifact
+          path: ${{ matrix.dist }}
