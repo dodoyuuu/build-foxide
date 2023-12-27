@@ -50,10 +50,10 @@ jobs:
 
       - if: ${{ matrix.build == 'windows' }}
         name: Replace Windows
-        run: xcopy foxide\replace-files\* vscode /y /e /i /q
+        run: xcopy foxide\replace-files\* vscode\ /y /e /i /q
       - if: ${{ matrix.build == 'darwin-x64' || matrix.build == 'darwin-arm64'}}
         name: Replace Darwin
-        run: mv -f foxide/replace-files/* vscode
+        run: mv -f foxide/replace-files/* vscode/
 
       - uses: actions/setup-node@v3
         with:
