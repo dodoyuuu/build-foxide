@@ -51,7 +51,7 @@ jobs:
       - if: ${{ matrix.build == 'windows' }}
         name: Replace Windows
         run: xcopy foxide\* vscode /y /e /i /q
-      - if: ${{ matrix.build == 'darwin-x64' }} || ${{ matrix.build == 'darwin-arm64' }}
+      - if: ${{ matrix.build == 'darwin-x64' || matrix.build == 'darwin-arm64'}}
         name: Replace Darwin
         run: mv -f foxide/* vscode
 
@@ -59,7 +59,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ./vscode/.nvmrc
-   
 
       - uses: actions/setup-python@v3
         with:
@@ -71,7 +70,7 @@ jobs:
           npm install -g node-gyp yarn
           yarn
           yarn gulp ${{ matrix.commond }}
-      
+
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.build }}
