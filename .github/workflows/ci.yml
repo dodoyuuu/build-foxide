@@ -13,10 +13,29 @@ on: workflow_dispatch
 #       - release/*
 
 jobs:
-  # windows
-  windows:
-    name: windows
-    runs-on: windows-latest
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        build: [windows, darwin-x64, darwin-arm]
+        include:
+          - build: windows
+            name: windows
+            runs-on: windows-latest
+            commond: vscode-win32-x64
+
+          - build: darwin-x64
+            name: darwin-x64
+            runs-on: macos-latest
+            commond: vscode-darwin-x64
+
+          - build: darwin-arm
+            name: darwin-arm
+            runs-on: macos-latest
+            commond: vscode-darwin-arm
+      fail-fast: false
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,65 +50,8 @@ jobs:
         with:
           python-version: 3.10.x
 
-      - name: Run Build IDE
+      - name: Run Build
         run: |
           npm install -g node-gyp yarn
           yarn
-          yarn gulp vscode-win32-x64
-          dir
-          cd ..
-          dir
-
-  # macOS x64
-  darwin-x64:
-    name: macos-x64
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: microsoft/vscode
-          ref: 1.85.1
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.10.x
-
-      - name: Run Build IDE
-        run: |
-          npm install -g node-gyp yarn
-          yarn
-          yarn gulp vscode-darwin-x64
-          ls
-          cd ..
-          ls
-
-  # macOS arm
-  darwin-arm:
-    name: macos-arm
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: microsoft/vscode
-          ref: 1.85.1
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.10.x
-
-      - name: Run Build IDE
-        run: |
-          npm install -g node-gyp yarn
-          yarn
-          yarn gulp vscode-darwin-arm64
-          ls
-          cd ..
-          ls
+          yarn gulp ${{ matrix.commond }}
