@@ -18,19 +18,19 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        build: [windows, macos-x64, macos-arm64]
+        build: [windows, darwin-x64, darwin-arm64]
         include:
           - build: windows
             os: windows-latest
             commond: vscode-win32-x64
             dist: VSCode-win32-x64
 
-          - build: macos-x64
+          - build: darwin-x64
             os: macos-latest
             commond: vscode-darwin-x64
             dist: VSCode-darwin-x64
 
-          - build: macos-arm64
+          - build: darwin-arm64
             os: macos-latest
             commond: vscode-darwin-arm64
             dist: VSCode-darwin-arm64
