@@ -41,20 +41,10 @@ jobs:
         with:
           repository: microsoft/vscode
           ref: 1.85.1
-          path: vscode
 
       - uses: actions/checkout@v3
         with:
           ref: master
-          path: foxide
-
-      - if: ${{ matrix.build == 'windows' }}
-        name: Replace Files
-        run: xcopy foxide\* vscode /y /e /i /q
-      - if: ${{ matrix.build == 'darwin-x64' }} || ${{ matrix.build == 'darwin-arm64' }}
-        name: Replace Files
-        run: mv -f foxide/* vscode
-      - run: cd vscode
 
       - uses: actions/setup-node@v3
         with:
@@ -70,7 +60,7 @@ jobs:
           yarn
           yarn gulp ${{ matrix.commond }}
       - run: cd ..
-      
+
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.build }}
