@@ -1,4 +1,4 @@
-name: Build FoxIDE
+name: CI
 
 on: workflow_dispatch
 
