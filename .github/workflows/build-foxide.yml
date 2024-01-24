@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        build: [windows, darwin-x64, darwin-arm64]
+        build: [windows, darwin-x64] #, darwin-arm64]
         include:
           - build: windows
             os: windows-latest
@@ -26,14 +26,14 @@ jobs:
             dist: VSCode-win32-x64
 
           - build: darwin-x64
-            os: macos-latest
+            os: [self-hosted, macOS, X64]
             commond: vscode-darwin-x64
             dist: VSCode-darwin-x64
 
-          - build: darwin-arm64
-            os: macos-latest
-            commond: vscode-darwin-arm64
-            dist: VSCode-darwin-arm64
+          # - build: darwin-arm64
+          #   os: macos-latest
+          #   commond: vscode-darwin-arm64
+          #   dist: VSCode-darwin-arm64
       fail-fast: false
 
     steps:
@@ -72,5 +72,5 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.build }}
+          name: foxide-${{ matrix.build }}
           path: ${{ matrix.dist }}
